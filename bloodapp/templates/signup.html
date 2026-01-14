@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="signup-form">
+    <h2>Sign Up</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+    
+    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0; text-align: center;">
+        <p style="color: #6b7280; font-size: 14px; margin-bottom: 12px;">Already registered?</p>
+        <a href="/login/" style="display: inline-block; padding: 10px 20px; background: #d94658; color: white; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 6px; transition: all 0.3s ease;" onmouseover="this.style.background='#c41e3a'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#d94658'; this.style.transform='translateY(0)';">Log In Here</a>
+    </div>
+</div>
+
+{% if error_message %}
+    <p class="error">{{ error_message }}</p>
+{% endif %}
+{% endblock %}

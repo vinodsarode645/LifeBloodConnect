@@ -1,0 +1,440 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .services-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 20px;
+    }
+
+    .services-header {
+        text-align: center;
+        margin-bottom: 80px;
+    }
+
+    .services-header h1 {
+        font-size: 48px;
+        color: #8b0000;
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+
+    .services-header p {
+        font-size: 18px;
+        color: #6b7280;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.8;
+    }
+
+    /* SERVICE CARDS */
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        margin-bottom: 80px;
+    }
+
+    .service-card {
+        background: white;
+        border-radius: 12px;
+        padding: 35px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        transition: all 0.35s ease;
+        border-top: 5px solid #b11226;
+    }
+
+    .service-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 15px 40px rgba(177, 18, 38, 0.2);
+    }
+
+    .service-icon {
+        font-size: 48px;
+        margin-bottom: 15px;
+        display: inline-block;
+    }
+
+    .service-card h3 {
+        font-size: 24px;
+        color: #1f2933;
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .service-card p {
+        font-size: 15px;
+        color: #4b5563;
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    .service-features {
+        list-style: none;
+        font-size: 14px;
+        color: #6b7280;
+    }
+
+    .service-features li {
+        padding: 8px 0;
+        padding-left: 25px;
+        position: relative;
+    }
+
+    .service-features li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #b11226;
+        font-weight: bold;
+    }
+
+    /* PROCESS SECTION */
+    .process-section {
+        background: linear-gradient(135deg, #f9fafb, #ffffff);
+        padding: 80px 20px;
+        margin: 0 -20px;
+        margin-bottom: 80px;
+    }
+
+    .process-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .process-section h2 {
+        font-size: 36px;
+        color: #1f2933;
+        text-align: center;
+        margin-bottom: 60px;
+        font-weight: 700;
+    }
+
+    .process-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+    }
+
+    .process-step {
+        text-align: center;
+        position: relative;
+    }
+
+    .step-number {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #b11226, #8b0000);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0 auto 20px;
+    }
+
+    .process-step h4 {
+        font-size: 18px;
+        color: #1f2933;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .process-step p {
+        font-size: 14px;
+        color: #6b7280;
+        line-height: 1.6;
+    }
+
+    .process-step:not(:last-child)::after {
+        content: "→";
+        position: absolute;
+        right: -20px;
+        top: 30px;
+        font-size: 24px;
+        color: #b11226;
+        font-weight: bold;
+    }
+
+    /* BENEFITS */
+    .benefits-section {
+        margin-bottom: 80px;
+    }
+
+    .benefits-section h2 {
+        font-size: 36px;
+        color: #1f2933;
+        text-align: center;
+        margin-bottom: 50px;
+        font-weight: 700;
+    }
+
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .benefit-item {
+        display: flex;
+        gap: 20px;
+    }
+
+    .benefit-icon {
+        font-size: 36px;
+        flex-shrink: 0;
+    }
+
+    .benefit-content h4 {
+        font-size: 18px;
+        color: #1f2933;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    .benefit-content p {
+        font-size: 14px;
+        color: #6b7280;
+        line-height: 1.6;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+        background: linear-gradient(135deg, #b11226, #8b0000);
+        color: white;
+        padding: 60px 40px;
+        border-radius: 12px;
+        text-align: center;
+        margin-top: 80px;
+    }
+
+    .cta-section h2 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+
+    .cta-section p {
+        font-size: 16px;
+        margin-bottom: 30px;
+        opacity: 0.95;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .cta-btn {
+        padding: 12px 28px;
+        border-radius: 6px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 2px solid white;
+        color: white;
+        background: transparent;
+    }
+
+    .cta-btn:hover {
+        background: white;
+        color: #b11226;
+    }
+
+    @media (max-width: 768px) {
+        .services-header h1 {
+            font-size: 36px;
+        }
+
+        .benefits-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .process-step:not(:last-child)::after {
+            display: none;
+        }
+
+        .process-steps {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="services-container">
+    <!-- Header -->
+    <div class="services-header">
+        <h1>🏥 Our Services</h1>
+        <p>Comprehensive solutions designed to connect donors, recipients, and healthcare providers in a seamless ecosystem</p>
+    </div>
+
+    <!-- Service Cards -->
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">🩸</div>
+            <h3>Blood Donor Registration</h3>
+            <p>Join our verified network of blood donors and make a life-saving impact with your donations.</p>
+            <ul class="service-features">
+                <li>Simple online registration</li>
+                <li>Eligibility screening</li>
+                <li>Donation scheduling</li>
+                <li>Health tracking</li>
+                
+            </ul>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">🚑</div>
+            <h3>Emergency Blood Requests</h3>
+            <p>Instantly request compatible blood during medical emergencies with guaranteed rapid response.</p>
+            <ul class="service-features">
+                <li>Real-time donor matching</li>
+                <li>24/7 availability</li>
+                <li>Verified donors only</li>
+                <li>Location-based search</li>
+            </ul>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">🏢</div>
+            <h3>Donation Centers & Blood Bank Support</h3>
+            <p>Integrated solutions for Centers and blood banks to manage requests and donor relationships.</p>
+            <ul class="service-features">
+                <li>Donor coordination</li>
+                <li>Real-time support</li>
+                
+            </ul>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">📱</div>
+            <h3>Website Access</h3>
+            <p>Convenient website access to all services for notifications and real-time updates.</p>
+            <ul class="service-features">
+                <li>One-tap donation</li>
+                <li>Donation history</li>
+                <li>Health reminders</li>
+                
+            </ul>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">🔒</div>
+            <h3>Secure & Verified</h3>
+            <p>Enterprise-grade security ensuring your health data and personal information are always protected.</p>
+            <ul class="service-features">
+                <li>Medical verification</li>
+                <li>Secure donations</li>
+                <li>Data privacy</li>
+            </ul>
+        </div>
+
+        <div class="service-card">
+            <div class="service-icon">📊</div>
+            <h3>Track & Manage</h3>
+            <p>Simple tools to manage your donations and stay connected with our platform.</p>
+            <ul class="service-features">
+                <li>View donation history</li>
+                <li>Update health information</li>
+                <li>Manage preferences</li>
+                <li>Get reminders</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="process-section">
+        <div class="process-container">
+            <h2>How It Works</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h4>Register</h4>
+                    <p>Create your account and complete eligibility screening in minutes.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h4>Verify</h4>
+                    <p>Our medical team verifies your information for safety and compliance.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h4>Connect</h4>
+                    <p>Get matched with recipients or donors based on blood type and location.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h4>Save Lives</h4>
+                    <p>Make your donation and save up to 3 lives in the process.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="benefits-section">
+        <h2>Why Choose LifeBlood Connect?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <div class="benefit-icon">⚡</div>
+                <div class="benefit-content">
+                    <h4>Lightning Fast</h4>
+                    <p>Get connected with compatible donors in minutes, not hours.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🛡️</div>
+                <div class="benefit-content">
+                    <h4>Verified Donors</h4>
+                    <p>All donors are medically screened and verified for your safety.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🌍</div>
+                <div class="benefit-content">
+                    <h4>Available 24/7</h4>
+                    <p>Our platform operates 24/7 for emergencies.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">💰</div>
+                <div class="benefit-content">
+                    <h4>Completely Free</h4>
+                    <p>All services are free. Donations come from the heart.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">📲</div>
+                <div class="benefit-content">
+                    <h4>Easy to Use</h4>
+                    <p>Simple, intuitive interface that anyone can use.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">❤️</div>
+                <div class="benefit-content">
+                    <h4>Your Impact Matters</h4>
+                    <p>Be a hero in someone's story. Your donation is a lifeline for those in need.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2>Ready to Save Lives?</h2>
+        <p>Join thousands of donors who have made a difference through LifeBlood Connect</p>
+        <div class="cta-buttons">
+            <a href="/signup/" class="cta-btn">Become a Donor</a>
+            <a href="/login/" class="cta-btn">Log In</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
